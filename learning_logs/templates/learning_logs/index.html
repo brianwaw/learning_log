@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      {% if messages %}
+      <div class="success-message">
+        {% for message in messages  %}
+          {% if 'success' in message.tags %}
+            {{message}}
+          {% endif %}
+        {% endfor %}
+          {{ success_message }}
+      </div>
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %}
+        {{topicform.as_p}}
+        <input type="hidden" name="topicform-submit" value="topicform-submit">
+        <button type="submit">Add Topic</button>
+      </form>
+
+      <form method="POST">
+        {% csrf_token %}
+        {{entryform.as_p}}
+        <input type="hidden" name="entryform-submit" value="entryform-submit">
+        <button type="submit">Add Entry</button>
+      </form>
+    </main>
+    <footer></footer>
+  </body>
+</html>
