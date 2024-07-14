@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <header></header>
-    <main>
+{% extends 'learning_logs/base.html' %}
+{% load static %}
+{% block title %}Add Topic{% endblock %}
+
+{% block content %}
       {% if messages %}
       <div class="success-message">
         {% for message in messages  %}
@@ -30,7 +26,4 @@
         <input type="hidden" name="entryform-submit" value="entryform-submit">
         <button type="submit">Add Entry</button>
       </form>
-    </main>
-    <footer></footer>
-  </body>
-</html>
+{% endblock %}

@@ -1,11 +1,20 @@
 from django import forms
 from .models import Topic, Entry
 
+
 class TopicForm(forms.ModelForm):
     """Form for adding Topics"""
     class Meta:
         model = Topic
         fields = '__all__'
+
+
+class TopicalEntry(forms.ModelForm):
+    """form for Topic Specific entries"""
+    class Meta:
+        model = Entry
+        fields = ['text']
+
 
 class EntryForm(forms.ModelForm):
     """form for adding Entries of given form"""
@@ -14,3 +23,5 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['topic', 'text']
+
+
