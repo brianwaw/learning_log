@@ -16,7 +16,7 @@ def index(request):
             if topicform.is_valid():
                 newtopic = topicform.save()
                 messages.success(request, f"Successfully added {newtopic.text}")
-                return redirect('learning_logs:index')
+                return redirect('learning_logs:add_topic')
 
         elif 'entryform-submit' in request.POST:
             entryform = EntryForm(request.POST)

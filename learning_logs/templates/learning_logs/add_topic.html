@@ -1,0 +1,23 @@
+{% extends 'learning_logs/base.html' %}
+{% load static %}
+{% block title %}Add Topic{% endblock %}
+
+{% block content %}
+      {% if messages %}
+      <div class="success-message">
+        {% for message in messages  %}
+          {% if 'success' in message.tags %}
+            {{message}}
+          {% endif %}
+        {% endfor %}
+          {{ success_message }}
+      </div>
+      {% endif %}
+      <form method="POST">
+        {% csrf_token %}
+        {{topicform.as_p}}
+        <input type="hidden" name="topicform-submit" value="topicform-submit">
+        <button type="submit">Add Topic</button>
+      </form>
+
+{% endblock %}
