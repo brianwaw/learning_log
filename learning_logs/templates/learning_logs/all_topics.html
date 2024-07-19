@@ -9,5 +9,7 @@
       <li><a href="{% url 'learning_logs:add_entry' topic_name=topic.text %} ">{{topic}}</a></li>
     {% endfor %}
   </ul>
+
+  <a href="{% url 'learning_logs:add_topic' %}">Add Topic</a>
 {% endblock %}
 
