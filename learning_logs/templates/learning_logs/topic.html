@@ -1,0 +1,24 @@
+{% extends 'learning_logs/base.html' %}
+{% block title %}{{topicc.text}}{% endblock %}
+
+{% load static %}
+{% block content %}
+
+  <p>Topic: {{topicc}}</p>
+  <ul>
+    {% for entry in all_entries %}
+    <li>
+        <h5>{{ entry.date_added | date:'M d, Y H:i' }}</h5>
+        <p>{{ entry.text | linebreaks }}</p>
+        <p>
+          <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
+        </p>
+    </li>
+    {% empty %}
+      <li>
+        There are no entries to {{topicc}} yet
+      </li>
+    {% endfor %}
+
+  </ul>
+{% endblock %}

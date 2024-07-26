@@ -39,6 +39,16 @@ def all_topics(request):
     return render(request, 'learning_logs/all_topics.html', context)
 
 
+def topic(request, topic_name):
+    """display entries of each topic"""
+    topicc = get_object_or_404(Topic, text=topic_name)
+    all_entries = topicc.entries.order_by('-date_added')
+    context = {
+        'topicc': topicc,
+        'all_entries': all_entries
+    }
+    return render(request, 'learning_logs/topic.html', context)
+
 def add_entry(request, topic_name):
     """add entry to specified topic"""
     entry_form = TopicalEntry()
@@ -56,3 +66,24 @@ def add_entry(request, topic_name):
         'entry_form': entry_form,
     }
     return render(request, 'learning_logs/topical_entry.html', context)
+
+
+def edit_entry(request, entry_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    topic_name = entry.topic
+    topic_object = get_object_or_404(Topic, text=topic_name)
+    if request.method == 'POST':
+        form = TopicalEntry(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_name=topic_object.text)
+
+    else:
+        form = TopicalEntry(instance=entry)
+
+    context = {
+        'entry': entry,
+        'topic_object': topic_object,
+        'form': form,
+    }
+    return render(request, 'learning_logs/edit_entry.html', context)

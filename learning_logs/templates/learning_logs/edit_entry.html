@@ -1,0 +1,14 @@
+{% extends 'learning_logs/base.html' %}
+{% block title %} {{topic_object}} {% endblock %}
+{% load static %}
+
+{% block content %}
+
+  <p><strong>Edit:</strong> {{topic_object}}</p>
+
+  <form action="{% url 'learning_logs:edit_entry' entry.id %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Save changes</button>
+  </form>
+{% endblock %}
