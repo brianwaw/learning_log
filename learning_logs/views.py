@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm, TopicalEntry
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+@login_required
 def index(request):
     """Home page view function"""
     entryform = EntryForm()
@@ -30,15 +32,17 @@ def index(request):
     return render(request, 'learning_logs/index.html', context)
 
 
+@login_required
 def all_topics(request):
     """Display all available topics"""
-    topics = Topic.objects.all()
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {
         'topics': topics
     }
     return render(request, 'learning_logs/all_topics.html', context)
 
 
+@login_required
 def topic(request, topic_name):
     """display entries of each topic"""
     topicc = get_object_or_404(Topic, text=topic_name)
@@ -49,6 +53,8 @@ def topic(request, topic_name):
     }
     return render(request, 'learning_logs/topic.html', context)
 
+
+@login_required
 def add_entry(request, topic_name):
     """add entry to specified topic"""
     entry_form = TopicalEntry()
@@ -59,7 +65,7 @@ def add_entry(request, topic_name):
             topic = get_object_or_404(Topic, text=topic_name)# instance for Topic model due to the foreign key aspect
             entry.topic = topic
             entry.save()
-            return redirect('learning_logs:add_entry', topic_name=topic.text)
+            return redirect('learning_logs:topic', topic_name=topic.text)
 
     context = {
         'topic_name': topic_name,
@@ -68,6 +74,7 @@ def add_entry(request, topic_name):
     return render(request, 'learning_logs/topical_entry.html', context)
 
 
+@login_required
 def edit_entry(request, entry_id):
     entry = get_object_or_404(Entry, id=entry_id)
     topic_name = entry.topic

@@ -1,0 +1,17 @@
+{% extends "learning_logs/base.html" %}
+{% block title %}Log in{% endblock title %}
+
+{% load static %}
+{% block content %}
+  {% if form.errors %}
+    <p>Your username and password has errors. Try again.</p>
+  {% endif %}
+
+  <form action="{% url 'users:login' %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Log in</button>
+    <input type="hidden" name="next" value="{% url 'learning_logs:all_topics' %}"/>
+  </form>
+
+{% endblock content %}
