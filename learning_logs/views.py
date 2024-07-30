@@ -61,8 +61,8 @@ def add_entry(request, topic_name):
     if request.method == 'POST':
         entry_form = TopicalEntry(request.POST)
         if entry_form.is_valid():
-            entry = entry_form.save(commit=False) #instance for Entry model
-            topic = get_object_or_404(Topic, text=topic_name)# instance for Topic model due to the foreign key aspect
+            entry = entry_form.save(commit=False)  # instance for Entry model
+            topic = get_object_or_404(Topic, text=topic_name)  # instance for Topic model due to the foreign key aspect
             entry.topic = topic
             entry.save()
             return redirect('learning_logs:topic', topic_name=topic.text)

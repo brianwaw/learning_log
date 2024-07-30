@@ -12,7 +12,6 @@
     <h1>Learning Log</h1>
     <nav>
       <ul>
-        <li><a href="#">Register</a></li>
         {% if user.is_authenticated %}
           Hello {{user.username}}.
         <a href="{% url 'users:logout' %}">Log out</a>
