@@ -14,7 +14,12 @@
       <ul>
         {% if user.is_authenticated %}
           Hello {{user.username}}.
-        <a href="{% url 'users:logout' %}">Log out</a>
+          <li>
+            <form action="{% url 'users:logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit">Log out</button>
+            </form>
+          </li>
         {% else %}
           <li><a href="{% url 'users:register' %}">Register</a></li>
           <li><a href="{% url 'users:login' %}">Log in</a></li>

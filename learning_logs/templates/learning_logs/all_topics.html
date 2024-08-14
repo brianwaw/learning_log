@@ -4,9 +4,20 @@
 {% block content %}
   <h2>Topics</h2>
 
+  {% if messages %}
+      <div class="success-message">
+        {% for message in messages  %}
+          {% if 'success' in message.tags %}
+            {{message}}
+          {% endif %}
+        {% endfor %}
+          {{ success_message }}
+      </div>
+  {% endif %}
+
   <ul>
     {% for topic in topics %}
-      <li><a href="{% url 'learning_logs:add_entry' topic_name=topic.text %} ">{{topic}}</a></li>
+      <li><a href="{% url 'learning_logs:add_entry' topic_name=topic %} ">{{topic}}</a></li>
 
     {% empty %}
       <li>No topics have been added yet.</li>

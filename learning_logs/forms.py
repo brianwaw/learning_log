@@ -6,7 +6,7 @@ class TopicForm(forms.ModelForm):
     """Form for adding Topics"""
     class Meta:
         model = Topic
-        fields = '__all__'
+        fields = ['text']
 
 
 class TopicalEntry(forms.ModelForm):
